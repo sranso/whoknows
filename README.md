@@ -8,6 +8,6 @@
 
 1. clone repo
 2. install dependences: `npm install`
-3. build client-side code: `webpack --config config/webpack.config.js`
+3. build client-side code: `npm run build-js`
 4. start server: `babel-node server.js`
 5. go to `localhost:300`

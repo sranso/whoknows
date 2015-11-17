@@ -4,7 +4,8 @@
   "description": "who knows right now",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node server/server",
+    "start": "babel-node server.js",
+    "build-js": "webpack --config config/webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sarah Ransohoff",
@@ -16,6 +17,7 @@
     "express": "^4.13.3",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
+    "react-html-document": "^1.1.0",
     "react-redux": "^4.0.0",
     "redux": "^3.0.4"
   },
