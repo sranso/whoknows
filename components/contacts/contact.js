@@ -1,5 +1,11 @@
-// include these in app.js
-// render one/both
-//
-// define routes.js file: add, contacts, contacts/<user>
-// use that in client and js; webapp / dev site
+import React, { Component } from 'react';
+
+class Contacts extends Component {
+  render() {
+    return (
+      <div>contact</div>
+    );
+  }
+};
+
+export default Contacts;

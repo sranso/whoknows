@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducer from './components/actions';
 import App from './components/app';
+import reducer from './redux/actions';
 
-const store = createStore(reducer);
-const reactElement = <App store={store} />;
 const appElement = document.getElementById('app');
+const store = createStore(reducer, window.__state);
+const reactElement = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
 ReactDOM.render(reactElement, appElement);
