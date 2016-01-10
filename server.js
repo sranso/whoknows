@@ -6,9 +6,8 @@ import renderHTML from './server/render_html';
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-app.get('/', renderHTML);
-
 app.use(express.static('build'));
+app.get('*', renderHTML);
 
 app.listen(PORT, (e) => {
   if (e) {

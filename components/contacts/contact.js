@@ -1,6 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-class Contacts extends Component {
+class Contact extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>contact</div>
@@ -8,4 +13,14 @@ class Contacts extends Component {
   }
 };
 
-export default Contacts;
+Contact.propTypes = {
+  contact: PropTypes.object //.isRequired
+}
+
+function mapStateToProps(state) {
+  return {
+    contacts: state.contacts
+  }
+}
+
+export default connect(mapStateToProps)(Contact);

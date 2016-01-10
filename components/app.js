@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import Contacts from './contacts/contacts';
 import Contact from './contacts/contact';
@@ -9,11 +8,10 @@ class App extends Component {
     return (
       <div>
         <h1>who you talkin to</h1>
-        <Contacts />
-        <Contact />
+        {this.props.children}
       </div>
     );
   }
 };
 
-export default connect()(App);
+export default App;
