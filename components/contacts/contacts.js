@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 class Contacts extends Component {
   constructor(props) {
     super(props);
+    this.renderContact = this.renderContact.bind(this);
   }
 
   renderContact(contact, i) {
+    let first = contact.firstName;
+    let last = contact.lastName;
     return (
-      <li key={i}>{`${contact.firstName} ${contact.lastName}`}</li>
+      <li key={i}>
+        <a href={`/contacts/${first}-${last}`}>{`${first} ${last}`}</a>
+      </li>
     );
   }
 

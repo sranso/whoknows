@@ -16,10 +16,12 @@
     "babel-preset-react": "^6.1.2",
     "express": "^4.13.3",
     "history": "^1.16.0",
+    "lodash": "^3.10.1",
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-html-document": "^1.1.0",
     "react-redux": "^4.0.0",
+    "react-router": "^1.0.3",
     "redux": "^3.0.4"
   },
   "devDependencies": {

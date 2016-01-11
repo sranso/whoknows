@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Contacts from './contacts/contacts';
 import Contact from './contacts/contact';
@@ -12,6 +12,10 @@ class App extends Component {
       </div>
     );
   }
+};
+
+App.propTypes = {
+  children: PropTypes.node
 };
 
 export default App;
