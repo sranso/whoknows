@@ -5,16 +5,7 @@ import _ from 'lodash';
 class Contact extends Component {
   constructor(props) {
     super(props);
-    this.findContact = this.findContact.bind(this);
     this.renderConversations = this.renderConversations.bind(this);
-  }
-
-  findContact(contacts, name) {
-    const first = name.split('-')[0];
-    const last = name.split('-')[1];
-    return _.find(contacts, contact => {
-      return contact.firstName === first && contact.lastName === last;
-    });
   }
 
   renderConversations(conversation, i) {
@@ -27,10 +18,7 @@ class Contact extends Component {
   }
 
   render() {
-    const { contacts } = this.props;
-    const { name } = this.props.params;
-    const contact = this.findContact(contacts, name);
-
+    const { contact } = this.props;
     return (
       <div>
         <h4>{`${contact.firstName} ${contact.lastName}`}</h4>
@@ -42,13 +30,17 @@ class Contact extends Component {
 };
 
 Contact.propTypes = {
-  contacts: PropTypes.array.isRequired
+  contact: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state) {
-  return {
-    contacts: state.contacts
-  }
+function mapStateToProps(state, props) {
+  const { name } = props.params;
+  const first = name.split('-')[0];
+  const last = name.split('-')[1];
+  const contact = _.find(state.contacts, contact => {
+    return contact.firstName === first && contact.lastName === last;
+  });
+  return { contact };
 }
 
 export default connect(mapStateToProps)(Contact);

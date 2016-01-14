@@ -64,8 +64,8 @@ export default function renderHTML(req, res) {
   // this will eventually be a GET to the api
 
   match({ routes, location }, (error, redirectLocation, renderProps) => {
-    const scripts = ['../client.js'];
-    const stylesheets = [];
+    const scripts = ['/js/client.js'];
+    const stylesheets = ['/stylesheets/styles.css'];
     const metatags = [{}];
     const doc = (
       <HTMLDocument
