@@ -1,8 +1,9 @@
 'use strict';
 
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
+import { reducer as formReducer } from 'redux-form';
 import { RoutingContext, match } from 'react-router';
 import HTMLDocument from 'react-html-document';
 import ReactDOMServer from 'react-dom/server';
@@ -10,11 +11,12 @@ import createLocation from 'history/lib/createLocation';
 import routes from '../routes';
 
 import App from '../components/app';
-import reducer from '../redux/actions';
+import reducerActions from '../redux/actions';
 
 export default function renderHTML(req, res) {
+  // grab the state
   const state = {
-    pendingConvo: {
+    pendingConversation: {
       contact: {},
       conversation: {},
       isAdding: false
@@ -59,10 +61,17 @@ export default function renderHTML(req, res) {
       lastName: 'ransohoff',
     }
   };
-  const store = createStore(reducer, state);
-  const location = createLocation(req.url);
-  // this will eventually be a GET to the api
 
+  // create the store
+  const reducers = {
+    reducerActions,
+    form: formReducer
+  }
+  const reducer = combineReducers(reducers);
+  const store = createStore(reducer, state);
+
+  // match the request location with route, or handle error/redirect
+  const location = req.url;
   match({ routes, location }, (error, redirectLocation, renderProps) => {
     const scripts = ['/js/client.js'];
     const stylesheets = ['/stylesheets/styles.css'];
@@ -73,7 +82,7 @@ export default function renderHTML(req, res) {
         scripts={scripts}
         stylesheets={stylesheets}
         metatags={metatags}
-        state={state}>
+        state={store.getState()}>
 
         <Provider store={store}>
           <RoutingContext {...renderProps} />
@@ -81,8 +90,9 @@ export default function renderHTML(req, res) {
 
       </HTMLDocument>
     );
-    const markup = ReactDOMServer.renderToStaticMarkup(doc);
 
+    // return html string
+    const markup = ReactDOMServer.renderToStaticMarkup(doc);
     return res.send(markup);
   });
 }

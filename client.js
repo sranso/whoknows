@@ -2,14 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
-import { createStore } from 'redux';
-import App from './components/app';
-import reducer from './redux/actions';
+import { createStore, combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+import reducerActions from './redux/actions';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 const appElement = document.getElementById('app');
-const store = createStore(reducer, window.__state);
+const state = JSON.parse(document.getElementById('__state').dataset.state);
+
+const reducers = {
+  reducerActions,
+  form: formReducer
+}
+const reducer = combineReducers(reducers);
+const store = createStore(reducer, state);
 const history = createBrowserHistory();
 
 const reactElement = (

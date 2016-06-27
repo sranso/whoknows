@@ -1,17 +1,5 @@
-/*
- * action types
- */
-
-/*
- * action creators
- */
-
-/*
- * initial state
- */
-
 const initialState = {
-  pendingConvo: {
+  pendingConversation: {
     contact: {},
     conversation: {},
     isAdding: false
@@ -57,17 +45,9 @@ const initialState = {
   }
 };
 
-/*
- * reducer
- */
-
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     default:
       return state;
   }
 };
-
-/*
- * switch handler
- */

@@ -18,12 +18,13 @@
     "express": "^4.13.3",
     "history": "^1.16.0",
     "lodash": "^3.10.1",
-    "react": "^0.14.2",
+    "react": "15.1.0",
     "react-dom": "^0.14.2",
-    "react-html-document": "^1.1.0",
+    "react-html-document": "2.2.0",
     "react-redux": "^4.0.0",
     "react-router": "^1.0.3",
-    "redux": "^3.0.4"
+    "redux": "3.0.4",
+    "redux-form": "5.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.1.2",
