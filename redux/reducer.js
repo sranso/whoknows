@@ -53,13 +53,23 @@ function findMatchingContact(state, contact) {
 
 function handleAddConversation(state, conversation) {
   const contactIndex = findMatchingContact(state, conversation);
+  let newContacts;
   if (contactIndex >= 0) {
-    const newContacts = update(state.contacts, {[contactIndex]: {conversations: {$push: [conversation]}}});
-    return Object.assign({}, state, { contacts: newContacts });
+    newContacts = update(state.contacts, {[contactIndex]: {conversations: {$push: [conversation]}}});
   } else {
-    console.log('create new contact, then add contact and their conversation');
-    return state;
+    const newContact = {
+      firstName: conversation.firstName,
+      lastName: conversation.lastName,
+      conversations: [
+        {
+          date: conversation.date,
+          method: conversation.method
+        }
+      ]
+    };
+    newContacts = update(state.contacts, {$push: [newContact]});
   }
+  return Object.assign({}, state, { contacts: newContacts });
 }
 
 export default function reducer(state = initialState, action = {}) {

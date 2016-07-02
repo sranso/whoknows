@@ -10,12 +10,12 @@ class AddConversation extends Component {
   }
 
   saveConversation(fields) {
-    const { firstName, lastName, methodOfCommunication, date } = fields;
+    const { firstName, lastName, method, date } = fields;
     const { actions: { addConversation } } = this.props;
     const data = {
       firstName,
       lastName,
-      methodOfCommunication,
+      method,
       date
     };
 
@@ -24,7 +24,7 @@ class AddConversation extends Component {
 
   render() {
     const { fields, handleSubmit } = this.props;
-    const { firstName, lastName, methodOfCommunication, date } = fields;
+    const { firstName, lastName, method, date } = fields;
     return (
       <div>
         <h4>Record a conversation</h4>
@@ -59,7 +59,7 @@ class AddConversation extends Component {
                 aria-label="method-of-communication"
                 type="text"
                 placeholder="E.g. call, text, gchat"
-                {...methodOfCommunication} />
+                {...method} />
             </label>
 
             <label htmlFor="date">
@@ -99,5 +99,5 @@ function mapDispatchToProps(dispatch) {
 
 export default reduxForm({
   form: 'add-conversation',
-  fields: ['firstName', 'lastName', 'methodOfCommunication', 'date']
+  fields: ['firstName', 'lastName', 'method', 'date']
 }, mapStateToProps, mapDispatchToProps)(AddConversation);
