@@ -1,64 +1,80 @@
 import React, { Component, PropTypes } from 'react';
-import { connect } from 'react-redux';
+import { reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
+import * as actions from '../redux/actions';
 
 class AddConversation extends Component {
   constructor(props) {
     super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInputKey = this.handleInputKey.bind(this);
+    this.saveConversation = this.saveConversation.bind(this);
   }
 
-  handleSubmit() {
-    console.log('submitted');
-  }
+  saveConversation(fields) {
+    const { firstName, lastName, methodOfCommunication, date } = fields;
+    const { actions: { addConversation } } = this.props;
+    const data = {
+      firstName,
+      lastName,
+      methodOfCommunication,
+      date
+    };
 
-  handleInputKey(e) {
-    console.log('input key');
+    return addConversation(data);
   }
 
   render() {
+    const { fields, handleSubmit } = this.props;
+    const { firstName, lastName, methodOfCommunication, date } = fields;
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <h4>Record a conversation</h4>
-          <div className="row">
-            <label htmlFor="first-name">Contact First Name</label>
-            <input
-              className="first-name"
-              type="text"
-              onChange={this.handleInputKey}
-              placeholder="Emma" />
-          </div>
+        <h4>Record a conversation</h4>
+        <form
+          onSubmit={handleSubmit(this.saveConversation)}
+          className="add-conversation">
+          <fieldset>
+            <label htmlFor="first-name">
+              Contact's First Name
+              <input
+                className="first-name"
+                aria-label="first-name"
+                type="text"
+                placeholder="Emma"
+                {...firstName} />
+            </label>
 
-          <div className="row">
-            <label htmlFor="last-name">Contact Last Name</label>
-            <input
-              className="last-name"
-              type="text"
-              onChange={this.handleInputKey}
-              placeholder="Thorne" />
-          </div>
+            <label htmlFor="last-name">
+              Contact's Last Name
+              <input
+                className="last-name"
+                aria-label="last-name"
+                type="text"
+                placeholder="Thorne"
+                {...lastName} />
+            </label>
 
-          <div className="row">
-            <label htmlFor="method">Method</label>
-            <input
-              className="method"
-              type="text"
-              onChange={this.handleInputKey}
-              placeholder="E.g. call, text, gchat" />
-          </div>
+            <label htmlFor="method">
+              Method
+              <input
+                className="method"
+                aria-label="method-of-communication"
+                type="text"
+                placeholder="E.g. call, text, gchat"
+                {...methodOfCommunication} />
+            </label>
 
-          <div className="row">
-            <label htmlFor="date">Date</label>
-            <input
-              className="date"
-              type="text"
-              maxLength={10}
-              onChange={this.handleInputKey}
-              placeholder="MM/DD/YYYY" />
-          </div>
+            <label htmlFor="date">
+              Date
+              <input
+                className="date"
+                aria-label="date"
+                type="text"
+                maxLength={10}
+                placeholder="MM/DD/YYYY"
+                {...date} />
+            </label>
+            <button onClick={handleSubmit(this.saveConversation)}>Add</button>
+          </fieldset>
 
-          <button onClick={this.handleSubmit}>Add</button>
         </form>
       </div>
     );
@@ -66,13 +82,22 @@ class AddConversation extends Component {
 };
 
 AddConversation.propTypes = {
-  pendingConvo: PropTypes.object.isRequired
+  fields: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  actions: PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {
+  return state;
+}
+
+function mapDispatchToProps(dispatch) {
   return {
-    pendingConvo: state.pendingConvo
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 
-export default connect(mapStateToProps)(AddConversation);
+export default reduxForm({
+  form: 'add-conversation',
+  fields: ['firstName', 'lastName', 'methodOfCommunication', 'date']
+}, mapStateToProps, mapDispatchToProps)(AddConversation);

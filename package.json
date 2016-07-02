@@ -19,6 +19,7 @@
     "history": "^1.16.0",
     "lodash": "^3.10.1",
     "react": "15.1.0",
+    "react-addons-update": "^15.1.0",
     "react-dom": "^0.14.2",
     "react-html-document": "2.2.0",
     "react-redux": "^4.0.0",

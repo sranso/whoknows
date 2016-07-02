@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 import { createStore, combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import reducerActions from './redux/actions';
+import appReducer from './redux/reducer';
 import routes from './routes';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 
@@ -12,7 +12,7 @@ const appElement = document.getElementById('app');
 const state = JSON.parse(document.getElementById('__state').dataset.state);
 
 const reducers = {
-  reducerActions,
+  appReducer,
   form: formReducer
 }
 const reducer = combineReducers(reducers);

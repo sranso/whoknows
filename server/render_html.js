@@ -11,19 +11,16 @@ import createLocation from 'history/lib/createLocation';
 import routes from '../routes';
 
 import App from '../components/app';
-import reducerActions, { initialState } from '../redux/actions';
+import appReducer from '../redux/reducer';
 
 export default function renderHTML(req, res) {
-  // grab the state
-  const state = initialState;
-
   // create the store
   const reducers = {
-    reducerActions,
+    appReducer,
     form: formReducer
   }
   const reducer = combineReducers(reducers);
-  const store = createStore(reducer, state);
+  const store = createStore(reducer);
 
   // match the request location with route, or handle error/redirect
   const location = req.url;
